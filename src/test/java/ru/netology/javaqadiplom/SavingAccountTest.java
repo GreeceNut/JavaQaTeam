@@ -29,7 +29,6 @@ public class SavingAccountTest {
 
     @Test
     // Исключение вида IllegalArgumentException не выкидывается при отрицательном значении minBalance
-
     public void minBalanceThird() {
 
         SavingAccount savingAccount = new SavingAccount(
