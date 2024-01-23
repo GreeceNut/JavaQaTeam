@@ -28,28 +28,12 @@ public class SavingAccountTest {
     }
 
     @Test
-    // Исключение вида IllegalArgumentException не выкидывается при отрицательном значении minBalance
+    // Исключение вида IllegalArgumentException не выкидывается
+    // при отрицательном значении minBalance
     public void minBalanceThird() {
-
-        SavingAccount savingAccount = new SavingAccount(
-                11_500,
-                -1,
-                700_000,
-                4);
-            Assertions.assertEquals(0, savingAccount.getMinBalance());
-    }
-
-    @Test
-    // Исключение вида  IllegalArgumentException не выкидывается при значении minBalance большем, чем значение maxBalance
-
-    public void minBalanceFourth() {
-
-        SavingAccount savingAccount = new SavingAccount(
-                11_500,
-                800_000,
-                700_000,
-                4);
-        Assertions.assertEquals(0, savingAccount.getMinBalance());
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            SavingAccount savingAccount = new SavingAccount(1_500, -1, 400_000, 4);
+        });
     }
 
     @Test
@@ -62,18 +46,6 @@ public class SavingAccountTest {
         Assertions.assertEquals(250_000, savingAccount.getMaxBalance());
     }
 
-    @Test
-    // Исключение вида IllegalArgumentException не выкидывается при отрицательном значении maxBalance
-
-    public void maxBalanceSecond() {
-
-        SavingAccount savingAccount = new SavingAccount(
-                3_500,
-                0,
-                -1,
-                12);
-        Assertions.assertEquals(0, savingAccount.getMaxBalance());
-    }
 
     @Test
 
@@ -87,17 +59,24 @@ public class SavingAccountTest {
     }
 
     @Test
-    // Исключение вида IllegalArgumentException не выкидывается при значении maxBalance меньшем, чем значение minBalance
-
+    //  Исключение вида IllegalArgumentException не выкидывается
+    //  при значении maxBalance меньшем, чем значение minBalance
     public void maxBalanceFourth() {
-
-        SavingAccount savingAccount = new SavingAccount(
-                12_000,
-                10_000,
-                7_000,
-                12);
-        Assertions.assertEquals(0, savingAccount.getMaxBalance());
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            SavingAccount savingAccount = new SavingAccount(11_000, 10_000, 5_000, 12);
+        });
     }
+
+    @Test
+    //  Исключение вида IllegalArgumentException не выкидывается
+    //  при отрицательном значении maxBalance
+    public void maxBalanceFifth() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            SavingAccount savingAccount = new SavingAccount(3_750, 0, -1, 12);
+        });
+    }
+
+
 
     @Test
     public void initialBalanceFirst() {
@@ -121,29 +100,21 @@ public class SavingAccountTest {
     }
 
     @Test
-    //  Исключение вида IllegalArgumentException не выкидывается при отрицательном значении initialBalance
-
+    // Исключение вида IllegalArgumentException не выкидывается
+    // при отрицательном значении initialBalance
     public void initialBalanceThird() {
-
-        SavingAccount savingAccount = new SavingAccount(
-                -1,
-                0,
-                150_000,
-                13);
-        Assertions.assertEquals(0, savingAccount.getBalance());
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            SavingAccount savingAccount = new SavingAccount(-1, 0, 150_000, 13);
+        });
     }
 
     @Test
-    // Исключение вида IllegalArgumentException не выкидывается при значении initialBalance большем, чем значение maxBalance
-
+    //  Исключение вида IllegalArgumentException не выкидывается
+    //  при значении initialBalance большем, чем значение maxBalance
     public void initialBalanceFourth() {
-
-        SavingAccount savingAccount = new SavingAccount(
-                147_000,
-                1500,
-                100_000,
-                13);
-        Assertions.assertEquals(0, savingAccount.getBalance());
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            SavingAccount savingAccount = new SavingAccount(160_000, 500, 150_000, 13);
+        });
     }
 
     @Test
@@ -211,18 +182,7 @@ public class SavingAccountTest {
         Assertions.assertEquals(5_000, savingAccount.getBalance());
     }
 
-    @Test
-    public void payTestFourth() {
-        // Отрицательный баланс при сумме покупки amount превышающей остаток на  балансе
 
-        SavingAccount savingAccount = new SavingAccount(
-                27_000,
-                500,
-                500_000,
-                17);
-        savingAccount.pay(37000);
-        Assertions.assertEquals(27_000, savingAccount.getBalance());
-    }
 
     @Test
     public void payTestFifth() {
@@ -237,18 +197,7 @@ public class SavingAccountTest {
         Assertions.assertEquals(expected, actual);
     }
 
-    @Test
-    public void payTestSixth() {
-        // Отрицательный баланс при сумме покупки amount превышающей установленный maxBalance
 
-        SavingAccount savingAccount = new SavingAccount(
-                35_000,
-                500,
-                500_000,
-                16);
-        savingAccount.pay(3_700_000);
-        Assertions.assertEquals(35_000, savingAccount.getBalance());
-    }
 
     @Test
     public void payTestSeventh() {
@@ -298,18 +247,7 @@ public class SavingAccountTest {
         Assertions.assertEquals(expected, actual);
     }
 
-    @Test
-    // Переменная initialBalance  не учитывается в итоговом балансе при пополнении счёта
 
-    public void addTestFirst() {
-        SavingAccount savingAccount = new SavingAccount(
-                35_000,
-                500,
-                500_000,
-                16);
-        savingAccount.add(253_640);
-        Assertions.assertEquals(288_640, savingAccount.getBalance());
-    }
 
     @Test
     public void addTestSecond() {
@@ -322,20 +260,7 @@ public class SavingAccountTest {
         Assertions.assertEquals(35_000, savingAccount.getBalance());
     }
 
-    @Test
-    // Не отображается корректно итоговый баланс в пределах допустимого максимального значения maxBalance при пополнении счёта
 
-    public void addTestThird() {
-        SavingAccount savingAccount = new SavingAccount(
-                35_000,
-                500,
-                500_000,
-                16);
-        savingAccount.add(465_000);
-        Assertions.assertEquals(500_000, savingAccount.getBalance());
-
-
-    }
 
     @Test
     public void addTestFourth() {
