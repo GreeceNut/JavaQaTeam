@@ -36,7 +36,7 @@ public class SavingAccountTest {
                 -1,
                 700_000,
                 4);
-        Assertions.assertEquals(0, savingAccount.getMinBalance());
+            Assertions.assertEquals(0, savingAccount.getMinBalance());
     }
 
     @Test
