@@ -78,6 +78,20 @@ public class CreditAccountTest {
     }
 
     @Test
+    public void payBalanceEqualCreditLimitTest() {
+        CreditAccount account = new CreditAccount(
+                5_000,
+                5_000,
+                15
+        );
+
+        account.pay(10_000);
+
+        Assertions.assertEquals(-5_000, account.getBalance());
+    }
+
+
+    @Test
     public void payAmountLessThanZeroTest() {
         CreditAccount account = new CreditAccount(
                 5_000,
@@ -102,15 +116,39 @@ public class CreditAccountTest {
 
         Assertions.assertEquals(5_000, account.getBalance());
     }
-
     @Test
-    public void SumPercentAtBalanceLessThanZeroTest() {
+    public void addAmountHigherThanZeroTest() {
         CreditAccount account = new CreditAccount(
-                -200,
+                5_000,
                 4_000,
                 15
         );
 
+        account.add(10_000);
+
+        Assertions.assertEquals(15_000, account.getBalance());
+    }
+    @Test
+    public void addAmountEqualsZeroTest() {
+        CreditAccount account = new CreditAccount(
+                5_000,
+                4_000,
+                15
+        );
+
+        account.add(0);
+
+        Assertions.assertEquals(5_000, account.getBalance());
+    }
+
+    @Test
+    public void SumPercentAtBalanceLessThanZeroTest() {
+        CreditAccount account = new CreditAccount(
+                200,
+                4_000,
+                15
+        );
+        account.balance = -200;
         Assertions.assertEquals(-30, account.yearChange());
     }
 
@@ -121,7 +159,7 @@ public class CreditAccountTest {
                 4_000,
                 15
         );
-
+        account.balance = 0;
         Assertions.assertEquals(0, account.yearChange());
     }
     @Test
@@ -131,7 +169,7 @@ public class CreditAccountTest {
                 4_000,
                 15
         );
-
+        account.balance = 200;
         Assertions.assertEquals(0, account.yearChange());
     }
 
