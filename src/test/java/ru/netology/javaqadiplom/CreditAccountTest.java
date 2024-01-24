@@ -78,6 +78,20 @@ public class CreditAccountTest {
     }
 
     @Test
+    public void payBalanceEqualCreditLimitTest() {
+        CreditAccount account = new CreditAccount(
+                5_000,
+                5_000,
+                15
+        );
+
+        account.pay(10_000);
+
+        Assertions.assertEquals(-5_000, account.getBalance());
+    }
+
+
+    @Test
     public void payAmountLessThanZeroTest() {
         CreditAccount account = new CreditAccount(
                 5_000,
@@ -121,7 +135,7 @@ public class CreditAccountTest {
                 4_000,
                 15
         );
-
+        account.balance = 0;
         Assertions.assertEquals(0, account.yearChange());
     }
     @Test
@@ -131,7 +145,7 @@ public class CreditAccountTest {
                 4_000,
                 15
         );
-
+        account.balance = 200;
         Assertions.assertEquals(0, account.yearChange());
     }
 
