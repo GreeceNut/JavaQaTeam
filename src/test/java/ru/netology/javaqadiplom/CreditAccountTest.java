@@ -106,11 +106,11 @@ public class CreditAccountTest {
     @Test
     public void SumPercentAtBalanceLessThanZeroTest() {
         CreditAccount account = new CreditAccount(
-                -200,
+                200,
                 4_000,
                 15
         );
-
+        account.balance = -200;
         Assertions.assertEquals(-30, account.yearChange());
     }
 
